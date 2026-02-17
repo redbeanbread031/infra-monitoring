@@ -1,7 +1,8 @@
-package kr.cs.interdata.consumer.service;
+package kr.cs.interdata.consumer.listener;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.cs.interdata.consumer.infra.MetricApiClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

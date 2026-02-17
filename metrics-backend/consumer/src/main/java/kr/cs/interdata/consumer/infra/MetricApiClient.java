@@ -1,4 +1,4 @@
-package kr.cs.interdata.consumer.service;
+package kr.cs.interdata.consumer.infra;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
