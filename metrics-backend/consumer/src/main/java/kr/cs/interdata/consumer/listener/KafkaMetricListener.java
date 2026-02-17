@@ -18,13 +18,14 @@ import org.springframework.stereotype.Service;
 public class KafkaMetricListener {
 
     private final Logger logger = LoggerFactory.getLogger(KafkaMetricListener.class);
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     private final MetricApiClient metricApiClient;
 
     @Autowired
-    public KafkaMetricListener(MetricApiClient metricApiClient) {
+    public KafkaMetricListener(MetricApiClient metricApiClient, ObjectMapper objectMapper) {
         this.metricApiClient = metricApiClient;
+        this.objectMapper = objectMapper;
     }
 
     /**
