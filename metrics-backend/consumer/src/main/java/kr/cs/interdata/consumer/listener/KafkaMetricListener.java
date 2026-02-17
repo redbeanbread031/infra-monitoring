@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Slf4j
-@Service
+@Component
 public class KafkaMetricListener {
 
     private final Logger logger = LoggerFactory.getLogger(KafkaMetricListener.class);
