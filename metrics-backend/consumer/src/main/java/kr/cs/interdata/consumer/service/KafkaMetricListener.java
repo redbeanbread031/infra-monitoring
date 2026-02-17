@@ -14,16 +14,16 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class KafkaConsumerService {
+public class KafkaMetricListener {
 
-    private final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
+    private final Logger logger = LoggerFactory.getLogger(KafkaMetricListener.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final MetricService metricService;
+    private final MetricApiClient metricApiClient;
 
     @Autowired
-    public KafkaConsumerService(MetricService metricService) {
-        this.metricService = metricService;
+    public KafkaMetricListener(MetricApiClient metricApiClient) {
+        this.metricApiClient = metricApiClient;
     }
 
     /**
@@ -50,7 +50,7 @@ public class KafkaConsumerService {
                 // *******************************
                 //     transmit to API-server
                 // *******************************
-                metricService.sendThresholdViolation(json);
+                metricApiClient.sendThresholdViolation(json);
 
                 logger.info("Kafka Record 처리 성공: {}", metricsNode);
 

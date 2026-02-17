@@ -8,15 +8,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 
 @Service
-public class MetricService {
+public class MetricApiClient {
 
     // 로그 변수
-    private final Logger logger = LoggerFactory.getLogger(MetricService.class);
+    private final Logger logger = LoggerFactory.getLogger(MetricApiClient.class);
 
     private final WebClient webClient;
 
     @Autowired
-    public MetricService(WebClient webClient) {
+    public MetricApiClient(WebClient webClient) {
         this.webClient = webClient;  // WebClient를 주입받음
     }
 
