@@ -1,4 +1,4 @@
-package kr.cs.interdata.producer.service;
+package kr.cs.interdata.producer.infra;
 
 import com.google.gson.Gson;
 import org.slf4j.Logger;

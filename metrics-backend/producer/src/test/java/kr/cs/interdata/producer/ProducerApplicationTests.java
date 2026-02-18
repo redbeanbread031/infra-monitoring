@@ -1,6 +1,6 @@
 package kr.cs.interdata.producer;
 
-import kr.cs.interdata.producer.service.KafkaMessagePublisher;
+import kr.cs.interdata.producer.infra.KafkaMessagePublisher;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
