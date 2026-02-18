@@ -9,17 +9,17 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KafkaProducerService {
+public class KafkaMessagePublisher {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final Gson gson = new Gson();
-    private final Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
+    private final Logger logger = LoggerFactory.getLogger(KafkaMessagePublisher.class);
 
     @Value("${KAFKA_TOPIC_NAME}")
     private String topic_name;
 
     @Autowired
-    public KafkaProducerService(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaMessagePublisher(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
