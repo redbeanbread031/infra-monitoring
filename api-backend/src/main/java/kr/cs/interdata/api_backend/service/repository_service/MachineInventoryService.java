@@ -24,8 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class MachineInventoryService {
 
-    @Autowired
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     public final TargetTypeRepository targetTypeRepository;
     private final HostMachineInventoryRepository hostMachineInventoryRepository;
@@ -34,10 +33,12 @@ public class MachineInventoryService {
     private final Logger logger = LoggerFactory.getLogger(MachineInventoryService.class);
 
     @Autowired
-    public MachineInventoryService(TargetTypeRepository targetTypeRepository,
+    public MachineInventoryService(ObjectMapper objectMapper,
+                                   TargetTypeRepository targetTypeRepository,
                                    HostMachineInventoryRepository hostMachineInventoryRepository,
                                    ContainerInventoryRepository containerInventoryRepository,
                                    ThresholdEventService thresholdEventService) {
+        this.objectMapper = objectMapper;
         this.targetTypeRepository = targetTypeRepository;
         this.hostMachineInventoryRepository = hostMachineInventoryRepository;
         this.containerInventoryRepository = containerInventoryRepository;

@@ -19,17 +19,19 @@ import org.springframework.stereotype.Service;
 public class MetricService {
 
     private final Logger logger = LoggerFactory.getLogger(MetricService.class);
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     private final ThresholdEvaluationService thresholdEvaluationService;
     private final MetricWebsocketSender metricWebsocketSender;
     private final MachineInventoryService machineInventoryService;
     private final MetricMonitorService metricMonitorService;
 
-    public MetricService(ThresholdEvaluationService thresholdEvaluationService,
+    public MetricService(ObjectMapper objectMapper,
+                         ThresholdEvaluationService thresholdEvaluationService,
                          MetricWebsocketSender metricWebsocketSender,
                          MachineInventoryService machineInventoryService,
                          MetricMonitorService metricMonitorService) {
+        this.objectMapper = objectMapper;
         this.thresholdEvaluationService = thresholdEvaluationService;
         this.metricWebsocketSender = metricWebsocketSender;
         this.machineInventoryService = machineInventoryService;

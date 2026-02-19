@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContainerInventoryService {
 
-    @Autowired
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     private final ContainerInventoryRepository containerInventoryRepository;
     private final Logger logger = LoggerFactory.getLogger(ContainerInventoryService.class);
 
