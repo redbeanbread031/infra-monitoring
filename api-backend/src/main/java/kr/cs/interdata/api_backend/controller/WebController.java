@@ -10,6 +10,7 @@ import kr.cs.interdata.api_backend.service.MetricService;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryFilter;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryForMachineId;
 import kr.cs.interdata.api_backend.service.repository_service.MachineInventoryService;
+import kr.cs.interdata.api_backend.service.threshold.ThresholdPolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +30,19 @@ import java.util.Map;
 public class WebController {
 
     private final ThresholdService thresholdService;
+    private final ThresholdPolicyService thresholdPolicyService;
     private final ThresholdSsePublisher thresholdSsePublisher;
     private final MachineInventoryService machineInventoryService;
 
     @Autowired
-    public WebController(ThresholdService thresholdService, ThresholdSsePublisher thresholdSsePublisher, MachineInventoryService machineInventoryService) {
+    public WebController(ThresholdService thresholdService,
+                         ThresholdSsePublisher thresholdSsePublisher,
+                         MachineInventoryService machineInventoryService,
+                         ThresholdPolicyService thresholdPolicyService) {
         this.thresholdService = thresholdService;
         this.thresholdSsePublisher = thresholdSsePublisher;
         this.machineInventoryService = machineInventoryService;
+        this.thresholdPolicyService = thresholdPolicyService;
     }
 
 
@@ -66,7 +72,7 @@ public class WebController {
     )
     @GetMapping("/metrics/threshold-setting")
     public ResponseEntity<?> getThreshold() {
-        return ResponseEntity.ok(thresholdService.getThreshold());
+        return ResponseEntity.ok(thresholdPolicyService.getThreshold());
     }
 
 
@@ -111,7 +117,7 @@ public class WebController {
     @PostMapping("/metrics/threshold-setting")
     public ResponseEntity<?> setThreshold(@RequestBody ThresholdSetting dto) {
         // 서비스로 설정 요청 위임 (에러 발생 시 error 응답)
-        ThresholdErrorResponse errorResponse = thresholdService.setThreshold(dto);
+        ThresholdErrorResponse errorResponse = thresholdPolicyService.setThreshold(dto);
 
         if (errorResponse != null) {
             return ResponseEntity
@@ -149,7 +155,7 @@ public class WebController {
     )
     @GetMapping("/metrics/under-threshold-setting")
     public ResponseEntity<?> getUnderThreshold() {
-        return ResponseEntity.ok(thresholdService.getUnderThreshold());
+        return ResponseEntity.ok(thresholdPolicyService.getUnderThreshold());
     }
 
 
@@ -195,7 +201,7 @@ public class WebController {
     )
     @PostMapping("/metrics/under-threshold-setting")
     public ResponseEntity<?> setUnderThreshold(@RequestBody ThresholdSetting dto) {
-        ThresholdErrorResponse errorResponse = thresholdService.setUnderThreshold(dto);
+        ThresholdErrorResponse errorResponse = thresholdPolicyService.setUnderThreshold(dto);
 
         if (errorResponse != null) {
             return ResponseEntity
