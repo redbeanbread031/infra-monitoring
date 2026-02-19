@@ -13,7 +13,6 @@ public class ContainerInventoryService {
     private final ContainerInventoryRepository containerInventoryRepository;
     private final Logger logger = LoggerFactory.getLogger(ContainerInventoryService.class);
 
-    @Autowired
     public ContainerInventoryService(
                                    ContainerInventoryRepository containerInventoryRepository) {
         this.containerInventoryRepository = containerInventoryRepository;

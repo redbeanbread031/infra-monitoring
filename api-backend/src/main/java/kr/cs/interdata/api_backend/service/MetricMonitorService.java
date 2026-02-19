@@ -24,7 +24,6 @@ public class MetricMonitorService {
     private final Logger logger = LoggerFactory.getLogger(MetricMonitorService.class);
     private final AbnormalDetectionService abnormalDetectionService;
 
-    @Autowired
     public MetricMonitorService(
             Cache<String, MachineMetricTimestamp> metricTimestampCache,
             AbnormalDetectionService abnormalDetectionService) {

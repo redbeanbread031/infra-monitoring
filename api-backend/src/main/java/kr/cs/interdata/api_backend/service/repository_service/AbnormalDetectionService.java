@@ -18,16 +18,15 @@ import java.util.List;
 public class AbnormalDetectionService {
 
     private final AbnormalMetricLogRepository abnormalMetricLogRepository;
+    private final ContainerInventoryService containerInventoryService;
+
     private final Logger logger = LoggerFactory.getLogger(AbnormalDetectionService.class);
 
-    @Autowired
-    private ContainerInventoryService containerInventoryService;
-
-
-    @Autowired
     public AbnormalDetectionService(
-            AbnormalMetricLogRepository abnormalMetricLogRepository) {
+            AbnormalMetricLogRepository abnormalMetricLogRepository,
+            ContainerInventoryService containerInventoryService) {
         this.abnormalMetricLogRepository = abnormalMetricLogRepository;
+        this.containerInventoryService = containerInventoryService;
     }
 
     /**

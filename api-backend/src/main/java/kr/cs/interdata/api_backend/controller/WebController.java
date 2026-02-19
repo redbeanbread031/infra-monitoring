@@ -33,7 +33,6 @@ public class WebController {
     private final ThresholdSsePublisher thresholdSsePublisher;
     private final MachineInventoryService machineInventoryService;
 
-    @Autowired
     public WebController(ThresholdQueryService thresholdQueryService,
                          ThresholdSsePublisher thresholdSsePublisher,
                          MachineInventoryService machineInventoryService,

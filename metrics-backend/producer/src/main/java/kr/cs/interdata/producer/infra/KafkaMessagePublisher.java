@@ -18,7 +18,6 @@ public class KafkaMessagePublisher {
     @Value("${KAFKA_TOPIC_NAME}")
     private String topic_name;
 
-    @Autowired
     public KafkaMessagePublisher(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }

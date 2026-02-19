@@ -32,7 +32,6 @@ public class MachineInventoryService {
     private final ThresholdEventService thresholdEventService;
     private final Logger logger = LoggerFactory.getLogger(MachineInventoryService.class);
 
-    @Autowired
     public MachineInventoryService(ObjectMapper objectMapper,
                                    TargetTypeRepository targetTypeRepository,
                                    HostMachineInventoryRepository hostMachineInventoryRepository,

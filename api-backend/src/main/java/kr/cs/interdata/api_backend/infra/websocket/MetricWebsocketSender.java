@@ -19,7 +19,6 @@ public class MetricWebsocketSender {
     private final MetricWebsocketHandler metricWebsocketHandler;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    @Autowired
     public MetricWebsocketSender(ObjectMapper objectMapper,
                                  MetricWebsocketHandler metricWebsocketHandler) {
         this.objectMapper = objectMapper;

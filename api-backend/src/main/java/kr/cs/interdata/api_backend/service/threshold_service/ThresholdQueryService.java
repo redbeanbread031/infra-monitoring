@@ -27,7 +27,6 @@ public class ThresholdQueryService {
     private final AbnormalMetricLogMapper abnormalMetricLogMapper;
     private final AbnormalMetricLogRepository abnormalMetricLogRepository;
 
-    @Autowired
     public ThresholdQueryService(AbnormalDetectionService abnormalDetectionService,
                                  AbnormalMetricLogMapper abnormalMetricLogMapper,
                                  AbnormalMetricLogRepository abnormalMetricLogRepository) {

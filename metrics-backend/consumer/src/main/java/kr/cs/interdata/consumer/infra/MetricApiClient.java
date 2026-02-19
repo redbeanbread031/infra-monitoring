@@ -15,7 +15,6 @@ public class MetricApiClient {
 
     private final WebClient webClient;
 
-    @Autowired
     public MetricApiClient(WebClient webClient) {
         this.webClient = webClient;  // WebClient를 주입받음
     }

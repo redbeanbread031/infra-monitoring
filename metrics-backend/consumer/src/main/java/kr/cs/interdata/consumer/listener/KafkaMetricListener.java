@@ -22,7 +22,6 @@ public class KafkaMetricListener {
 
     private final MetricApiClient metricApiClient;
 
-    @Autowired
     public KafkaMetricListener(MetricApiClient metricApiClient, ObjectMapper objectMapper) {
         this.metricApiClient = metricApiClient;
         this.objectMapper = objectMapper;

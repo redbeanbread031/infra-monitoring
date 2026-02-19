@@ -18,7 +18,6 @@ public class DataInitializer implements CommandLineRunner {
     private final MetricsByTypeRepository metricsByTypeRepository;
     private final ThresholdStore thresholdStore;
 
-    @Autowired
     public DataInitializer(TargetTypeRepository targetTypeRepository,
                            MetricsByTypeRepository metricsByTypeRepository,
                            ThresholdStore thresholdStore) {
