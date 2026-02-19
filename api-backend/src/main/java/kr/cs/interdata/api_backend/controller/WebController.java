@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import kr.cs.interdata.api_backend.infra.websocket.ThresholdSsePublisher;
 import kr.cs.interdata.api_backend.service.MetricService;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryFilter;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryForMachineId;
@@ -28,11 +29,13 @@ import java.util.Map;
 public class WebController {
 
     private final ThresholdService thresholdService;
+    private final ThresholdSsePublisher thresholdSsePublisher;
     private final MachineInventoryService machineInventoryService;
 
     @Autowired
-    public WebController(ThresholdService thresholdService, MachineInventoryService machineInventoryService) {
+    public WebController(ThresholdService thresholdService, ThresholdSsePublisher thresholdSsePublisher, MachineInventoryService machineInventoryService) {
         this.thresholdService = thresholdService;
+        this.thresholdSsePublisher = thresholdSsePublisher;
         this.machineInventoryService = machineInventoryService;
     }
 
@@ -397,7 +400,7 @@ public class WebController {
     )
     @GetMapping("/metrics/threshold-alert")
     public SseEmitter alertThreshold() {
-        return thresholdService.alertThreshold();
+        return thresholdSsePublisher.alertThreshold();
     }
 
 }
