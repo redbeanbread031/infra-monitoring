@@ -1,55 +1,37 @@
-package kr.cs.interdata.api_backend.service;
+package kr.cs.interdata.api_backend.service.threshold;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.PreDestroy;
-import kr.cs.interdata.api_backend.dto.*;
-import kr.cs.interdata.api_backend.dto.abnormal_log_dto.*;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryFilter;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryForMachineId;
 import kr.cs.interdata.api_backend.entity.AbnormalMetricLog;
-import kr.cs.interdata.api_backend.infra.ThresholdStore;
-import kr.cs.interdata.api_backend.infra.websocket.ThresholdSsePublisher;
 import kr.cs.interdata.api_backend.repository.AbnormalMetricLogRepository;
 import kr.cs.interdata.api_backend.service.repository_service.AbnormalDetectionService;
-import kr.cs.interdata.api_backend.service.repository_service.ContainerInventoryService;
-import kr.cs.interdata.api_backend.service.repository_service.MonitoringDefinitionService;
-import kr.cs.interdata.api_backend.service.threshold.ThresholdEventService;
-import kr.cs.interdata.api_backend.service.threshold.ThresholdPolicyService;
 import kr.cs.interdata.api_backend.service.threshold.mapper.AbnormalMetricLogMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Service
-public class ThresholdService {
+public class ThresholdQueryService {
 
-    @Autowired
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final Logger logger = LoggerFactory.getLogger(ThresholdService.class);
+    private final Logger logger = LoggerFactory.getLogger(ThresholdQueryService.class);
 
     private final AbnormalDetectionService abnormalDetectionService;
     private final AbnormalMetricLogMapper abnormalMetricLogMapper;
     private final AbnormalMetricLogRepository abnormalMetricLogRepository;
 
     @Autowired
-    public ThresholdService(AbnormalDetectionService abnormalDetectionService,
-                            AbnormalMetricLogMapper abnormalMetricLogMapper,
-                            AbnormalMetricLogRepository abnormalMetricLogRepository) {
+    public ThresholdQueryService(AbnormalDetectionService abnormalDetectionService,
+                                 AbnormalMetricLogMapper abnormalMetricLogMapper,
+                                 AbnormalMetricLogRepository abnormalMetricLogRepository) {
         this.abnormalDetectionService = abnormalDetectionService;
         this.abnormalMetricLogMapper = abnormalMetricLogMapper;
         this.abnormalMetricLogRepository = abnormalMetricLogRepository;

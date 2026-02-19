@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import kr.cs.interdata.api_backend.infra.websocket.ThresholdSsePublisher;
-import kr.cs.interdata.api_backend.service.MetricService;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryFilter;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryForMachineId;
 import kr.cs.interdata.api_backend.service.repository_service.MachineInventoryService;
@@ -16,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import kr.cs.interdata.api_backend.dto.*;
-import kr.cs.interdata.api_backend.service.ThresholdService;
+import kr.cs.interdata.api_backend.service.threshold.ThresholdQueryService;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Map;
@@ -29,17 +28,17 @@ import java.util.Map;
 @RequestMapping("/api")
 public class WebController {
 
-    private final ThresholdService thresholdService;
+    private final ThresholdQueryService thresholdQueryService;
     private final ThresholdPolicyService thresholdPolicyService;
     private final ThresholdSsePublisher thresholdSsePublisher;
     private final MachineInventoryService machineInventoryService;
 
     @Autowired
-    public WebController(ThresholdService thresholdService,
+    public WebController(ThresholdQueryService thresholdQueryService,
                          ThresholdSsePublisher thresholdSsePublisher,
                          MachineInventoryService machineInventoryService,
                          ThresholdPolicyService thresholdPolicyService) {
-        this.thresholdService = thresholdService;
+        this.thresholdQueryService = thresholdQueryService;
         this.thresholdSsePublisher = thresholdSsePublisher;
         this.machineInventoryService = machineInventoryService;
         this.thresholdPolicyService = thresholdPolicyService;
@@ -264,7 +263,7 @@ public class WebController {
                 .metricName(metricName)
                 .build();
 
-        return ResponseEntity.ok(thresholdService.getThresholdHistory(filter));
+        return ResponseEntity.ok(thresholdQueryService.getThresholdHistory(filter));
     }
 
 
@@ -302,7 +301,7 @@ public class WebController {
     )
     @GetMapping("/metrics/threshold-history-all")
     public ResponseEntity<?> getThresholdHistoryAll() {
-        return ResponseEntity.ok(thresholdService.getThresholdHistortForAll());
+        return ResponseEntity.ok(thresholdQueryService.getThresholdHistortForAll());
     }
 
 

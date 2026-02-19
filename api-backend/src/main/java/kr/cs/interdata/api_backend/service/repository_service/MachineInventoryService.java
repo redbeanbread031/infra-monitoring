@@ -9,7 +9,7 @@ import kr.cs.interdata.api_backend.entity.TargetType;
 import kr.cs.interdata.api_backend.repository.ContainerInventoryRepository;
 import kr.cs.interdata.api_backend.repository.HostMachineInventoryRepository;
 import kr.cs.interdata.api_backend.repository.TargetTypeRepository;
-import kr.cs.interdata.api_backend.service.ThresholdService;
+import kr.cs.interdata.api_backend.service.threshold.ThresholdQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +30,18 @@ public class MachineInventoryService {
     public final TargetTypeRepository targetTypeRepository;
     private final HostMachineInventoryRepository hostMachineInventoryRepository;
     private final ContainerInventoryRepository containerInventoryRepository;
-    private final ThresholdService thresholdService;
+    private final ThresholdQueryService thresholdQueryService;
     private final Logger logger = LoggerFactory.getLogger(MachineInventoryService.class);
 
     @Autowired
     public MachineInventoryService(TargetTypeRepository targetTypeRepository,
                                    HostMachineInventoryRepository hostMachineInventoryRepository,
                                    ContainerInventoryRepository containerInventoryRepository,
-                                   ThresholdService thresholdService) {
+                                   ThresholdQueryService thresholdQueryService) {
         this.targetTypeRepository = targetTypeRepository;
         this.hostMachineInventoryRepository = hostMachineInventoryRepository;
         this.containerInventoryRepository = containerInventoryRepository;
-        this.thresholdService = thresholdService;
+        this.thresholdQueryService = thresholdQueryService;
     }
 
 
@@ -114,7 +114,7 @@ public class MachineInventoryService {
                         // 3. 있으면 ThresholdService에 경보 로그 주고 + containerId 덮어씌우고 저장
 
                         // send 경보 로그
-                        thresholdService.storeContainerIdChanged(
+                        thresholdQueryService.storeContainerIdChanged(
                                 containerId,
                                 containerName,
                                 timestamp
