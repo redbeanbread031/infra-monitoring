@@ -1,4 +1,4 @@
-package kr.cs.interdata.api_backend.service.threshold.mapper;
+package kr.cs.interdata.api_backend.service.threshold_service.mapper;
 
 import kr.cs.interdata.api_backend.entity.AbnormalMetricLog;
 import kr.cs.interdata.api_backend.service.repository_service.ContainerInventoryService;

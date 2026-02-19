@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.cs.interdata.api_backend.infra.websocket.MetricWebsocketSender;
 import kr.cs.interdata.api_backend.service.repository_service.MachineInventoryService;
-import kr.cs.interdata.api_backend.service.threshold.ThresholdEvaluationService;
+import kr.cs.interdata.api_backend.service.threshold_service.ThresholdEvaluationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

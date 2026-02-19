@@ -1,4 +1,4 @@
-package kr.cs.interdata.api_backend.service.threshold;
+package kr.cs.interdata.api_backend.service.threshold_service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,13 +7,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryFilter;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryForMachineId;
 import kr.cs.interdata.api_backend.entity.AbnormalMetricLog;
 import kr.cs.interdata.api_backend.repository.AbnormalMetricLogRepository;
 import kr.cs.interdata.api_backend.service.repository_service.AbnormalDetectionService;
-import kr.cs.interdata.api_backend.service.threshold.mapper.AbnormalMetricLogMapper;
+import kr.cs.interdata.api_backend.service.threshold_service.mapper.AbnormalMetricLogMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

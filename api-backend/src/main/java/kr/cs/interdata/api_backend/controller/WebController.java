@@ -9,13 +9,13 @@ import kr.cs.interdata.api_backend.infra.websocket.ThresholdSsePublisher;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryFilter;
 import kr.cs.interdata.api_backend.dto.history_dto.HistoryForMachineId;
 import kr.cs.interdata.api_backend.service.repository_service.MachineInventoryService;
-import kr.cs.interdata.api_backend.service.threshold.ThresholdPolicyService;
+import kr.cs.interdata.api_backend.service.threshold_service.ThresholdPolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import kr.cs.interdata.api_backend.dto.*;
-import kr.cs.interdata.api_backend.service.threshold.ThresholdQueryService;
+import kr.cs.interdata.api_backend.service.threshold_service.ThresholdQueryService;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Map;

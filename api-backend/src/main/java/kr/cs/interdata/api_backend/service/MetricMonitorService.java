@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.benmanes.caffeine.cache.Cache;
 import kr.cs.interdata.api_backend.infra.cache.MachineMetricTimestamp;
 import kr.cs.interdata.api_backend.service.repository_service.AbnormalDetectionService;
-import kr.cs.interdata.api_backend.service.threshold.ThresholdQueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

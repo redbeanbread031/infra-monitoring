@@ -1,4 +1,4 @@
-package kr.cs.interdata.api_backend.service.threshold;
+package kr.cs.interdata.api_backend.service.threshold_service;
 
 import kr.cs.interdata.api_backend.dto.StoreThresholdViolated;
 import kr.cs.interdata.api_backend.dto.abnormal_log_dto.*;
