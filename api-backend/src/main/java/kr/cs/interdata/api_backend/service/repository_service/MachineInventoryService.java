@@ -9,7 +9,7 @@ import kr.cs.interdata.api_backend.entity.TargetType;
 import kr.cs.interdata.api_backend.repository.ContainerInventoryRepository;
 import kr.cs.interdata.api_backend.repository.HostMachineInventoryRepository;
 import kr.cs.interdata.api_backend.repository.TargetTypeRepository;
-import kr.cs.interdata.api_backend.service.ThresholdService;
+import kr.cs.interdata.api_backend.service.threshold_service.ThresholdEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +24,24 @@ import java.util.stream.Collectors;
 @Service
 public class MachineInventoryService {
 
-    @Autowired
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     public final TargetTypeRepository targetTypeRepository;
     private final HostMachineInventoryRepository hostMachineInventoryRepository;
     private final ContainerInventoryRepository containerInventoryRepository;
-    private final ThresholdService thresholdService;
+    private final ThresholdEventService thresholdEventService;
     private final Logger logger = LoggerFactory.getLogger(MachineInventoryService.class);
 
-    @Autowired
-    public MachineInventoryService(TargetTypeRepository targetTypeRepository,
+    public MachineInventoryService(ObjectMapper objectMapper,
+                                   TargetTypeRepository targetTypeRepository,
                                    HostMachineInventoryRepository hostMachineInventoryRepository,
                                    ContainerInventoryRepository containerInventoryRepository,
-                                   ThresholdService thresholdService) {
+                                   ThresholdEventService thresholdEventService) {
+        this.objectMapper = objectMapper;
         this.targetTypeRepository = targetTypeRepository;
         this.hostMachineInventoryRepository = hostMachineInventoryRepository;
         this.containerInventoryRepository = containerInventoryRepository;
-        this.thresholdService = thresholdService;
+        this.thresholdEventService = thresholdEventService;
     }
 
 
@@ -114,7 +114,7 @@ public class MachineInventoryService {
                         // 3. 있으면 ThresholdService에 경보 로그 주고 + containerId 덮어씌우고 저장
 
                         // send 경보 로그
-                        thresholdService.storeContainerIdChanged(
+                        thresholdEventService.storeContainerIdChanged(
                                 containerId,
                                 containerName,
                                 timestamp

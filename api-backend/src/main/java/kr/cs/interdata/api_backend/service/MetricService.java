@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.cs.interdata.api_backend.infra.websocket.MetricWebsocketSender;
 import kr.cs.interdata.api_backend.service.repository_service.MachineInventoryService;
+import kr.cs.interdata.api_backend.service.threshold_service.ThresholdEvaluationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,20 @@ import org.springframework.stereotype.Service;
 public class MetricService {
 
     private final Logger logger = LoggerFactory.getLogger(MetricService.class);
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
-    private final ThresholdService thresholdService;
+    private final ThresholdEvaluationService thresholdEvaluationService;
     private final MetricWebsocketSender metricWebsocketSender;
     private final MachineInventoryService machineInventoryService;
     private final MetricMonitorService metricMonitorService;
 
-    public MetricService(ThresholdService thresholdService,
+    public MetricService(ObjectMapper objectMapper,
+                         ThresholdEvaluationService thresholdEvaluationService,
                          MetricWebsocketSender metricWebsocketSender,
                          MachineInventoryService machineInventoryService,
                          MetricMonitorService metricMonitorService) {
-        this.thresholdService = thresholdService;
+        this.objectMapper = objectMapper;
+        this.thresholdEvaluationService = thresholdEvaluationService;
         this.metricWebsocketSender = metricWebsocketSender;
         this.machineInventoryService = machineInventoryService;
         this.metricMonitorService = metricMonitorService;
@@ -57,7 +60,7 @@ public class MetricService {
         metricMonitorService.updateTimestamps(metricsNode);
 
         // 4. 임계값 초과 및 미달 확인
-        thresholdService.calcThreshold(metric);
+        thresholdEvaluationService.calcThreshold(metric);
 
         // 5. 로그 출력
         logger.info("Metrics sent to Websocket: {}", metric);

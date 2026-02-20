@@ -23,7 +23,6 @@ public class MonitoringDefinitionService {
     private final TargetTypeRepository targetTypeRepository;
     private final MetricsByTypeRepository metricsByTypeRepository;
 
-    @Autowired
     public MonitoringDefinitionService(
             TargetTypeRepository targetTypeRepository,
             MetricsByTypeRepository metricsByTypeRepository) {

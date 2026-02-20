@@ -13,15 +13,15 @@ import java.util.concurrent.Executors;
 @Component
 public class MetricWebsocketSender {
 
-    // JSON 변환을 위한 ObjectMapper
     private static final Logger logger = LoggerFactory.getLogger(MetricWebsocketSender.class);
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     private final MetricWebsocketHandler metricWebsocketHandler;
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    @Autowired
-    public MetricWebsocketSender(MetricWebsocketHandler metricWebsocketHandler) {
+    public MetricWebsocketSender(ObjectMapper objectMapper,
+                                 MetricWebsocketHandler metricWebsocketHandler) {
+        this.objectMapper = objectMapper;
         this.metricWebsocketHandler = metricWebsocketHandler;
     }
 

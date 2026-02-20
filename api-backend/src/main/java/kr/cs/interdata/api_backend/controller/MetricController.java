@@ -15,7 +15,6 @@ public class MetricController {
 
     private final MetricService metricService;
 
-    @Autowired
     public MetricController(MetricService metricService) {
         this.metricService = metricService;
     }

@@ -1,7 +1,8 @@
-package kr.cs.interdata.consumer.service;
+package kr.cs.interdata.consumer.listener;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.cs.interdata.consumer.infra.MetricApiClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -10,20 +11,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Slf4j
-@Service
-public class KafkaConsumerService {
+@Component
+public class KafkaMetricListener {
 
-    private final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final Logger logger = LoggerFactory.getLogger(KafkaMetricListener.class);
+    private final ObjectMapper objectMapper;
 
-    private final MetricService metricService;
+    private final MetricApiClient metricApiClient;
 
-    @Autowired
-    public KafkaConsumerService(MetricService metricService) {
-        this.metricService = metricService;
+    public KafkaMetricListener(MetricApiClient metricApiClient, ObjectMapper objectMapper) {
+        this.metricApiClient = metricApiClient;
+        this.objectMapper = objectMapper;
     }
 
     /**
@@ -50,7 +51,7 @@ public class KafkaConsumerService {
                 // *******************************
                 //     transmit to API-server
                 // *******************************
-                metricService.sendThresholdViolation(json);
+                metricApiClient.sendThresholdViolation(json);
 
                 logger.info("Kafka Record 처리 성공: {}", metricsNode);
 

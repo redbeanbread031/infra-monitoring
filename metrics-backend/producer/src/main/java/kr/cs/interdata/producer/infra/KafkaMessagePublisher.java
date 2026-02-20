@@ -1,28 +1,24 @@
-package kr.cs.interdata.producer.service;
+package kr.cs.interdata.producer.infra;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Slf4j
-@Service
-public class KafkaProducerService {
+@Component
+public class KafkaMessagePublisher {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final Gson gson = new Gson();
-    private final Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
+    private final Logger logger = LoggerFactory.getLogger(KafkaMessagePublisher.class);
 
     @Value("${KAFKA_TOPIC_NAME}")
     private String topic_name;
 
-    @Autowired
-    public KafkaProducerService(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaMessagePublisher(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
