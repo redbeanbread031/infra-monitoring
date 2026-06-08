@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.github.benmanes.caffeine.cache.Cache;
 import kr.cs.interdata.api_backend.infra.cache.MachineMetricTimestamp;
 import kr.cs.interdata.api_backend.service.repository_service.AbnormalDetectionService;
+import kr.cs.interdata.api_backend.service.threshold_service.ThresholdEventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ public class MetricMonitorService {
 
     private final Cache<String, MachineMetricTimestamp> metricTimestampCache;
     private final Logger logger = LoggerFactory.getLogger(MetricMonitorService.class);
-    private final AbnormalDetectionService abnormalDetectionService;
+    private final ThresholdEventService thresholdEventService;
 
     public MetricMonitorService(
             Cache<String, MachineMetricTimestamp> metricTimestampCache,
-            AbnormalDetectionService abnormalDetectionService) {
+            ThresholdEventService thresholdEventService) {
         this.metricTimestampCache = metricTimestampCache;
-        this.abnormalDetectionService = abnormalDetectionService;
+        this.thresholdEventService = thresholdEventService;
     }
 
     // 메트릭 수신 시 호출: 캐시에 시간 저장
@@ -93,7 +94,7 @@ public class MetricMonitorService {
                 String type = parts[0];
                 String parentHostName = parts.length == 3 ? parts[2] : null;
 
-                abnormalDetectionService.storeTimeout(type, data.getMachineId(), data.getMachineName(), now);
+                thresholdEventService.storeTimeout(type, data.getMachineId(), data.getMachineName(), now);
 
                 metricTimestampCache.invalidate(key);
 
